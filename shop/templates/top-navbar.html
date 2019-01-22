@@ -1,14 +1,22 @@
 <div class="container">
 	<div class="my_custom_menu">
 		<ul>
+			<li>
+				<a href="{% url 'manual' %}" target="_blank">User Manual <i class="fas fa-book"></i></a>
+			</li>
 			{% if request.user.is_authenticated and request.user.first_name %}
 			<li>
 				Welcome, <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.first_name }} <i class="fas fa-user-circle"></i></a>
 				<div class="dropdown-menu dropdown-menu-right">
-					<a href="" class="dropdown-item">Edit Profile</a>
+					<a href="{% url 'edit' %}" class="dropdown-item">Edit Profile</a>
 					<a href="{% url 'order:order_history' %}" class="dropdown-item">Order History</a>
 				</div>
 			</li>
+				{% if user.is_superuser %}
+					<li>
+						<a href="{% url 'admin:index' %}">Admin Page</a>
+					</li>
+				{% endif %}
 			<li>
 				<a href="{% url 'signout' %}">Sign Out <i class="fas fa-sign-out-alt"></i></a>
 			</li>

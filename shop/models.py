@@ -1,6 +1,16 @@
+'''
+Created: September 18, 2018
+Created by: Ethan Lor, Benjamin Klipfel, Travis Waldvogel
+Updated: October 25, 2018 Ethan Lor
+		 November 6, 2018 Ethan Lor, Benjamin Klipfel, Travis Waldvogel
+		 November 27, 2018 Ethan Lor
+		 December 8, 2018 Ethan Lor
+'''
+
 from django.db import models
 from django.urls import reverse
 
+# Database model for Category table
 class Category(models.Model):
 	name = models.CharField(max_length = 250, unique = True)
 	slug = models.SlugField(max_length = 250, unique = True)
@@ -8,6 +18,7 @@ class Category(models.Model):
 	image = models.ImageField(upload_to = 'category', blank = True)
 
 	class Meta:
+		db_table = 'Category'
 		ordering = ('name',)
 		verbose_name = 'category'
 		verbose_name_plural = 'categories'
@@ -18,6 +29,7 @@ class Category(models.Model):
 	def __str__(self):
 		return '{}'.format(self.name)
 
+# Database model for Product table
 class Product(models.Model):
 	name = models.CharField(max_length = 250, unique = True)
 	slug = models.SlugField(max_length = 250, unique = True)
@@ -31,6 +43,7 @@ class Product(models.Model):
 	updated = models.DateTimeField(auto_now = True)
 
 	class Meta:
+		db_table = 'Product'
 		ordering = ('name',)
 		verbose_name = 'product'
 		verbose_name_plural = 'products'

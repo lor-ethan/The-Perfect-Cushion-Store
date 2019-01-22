@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block metadescription %}
+	This is the checkout page. Please enter you billing/shipping information before proceeding.
+{% endblock %}
+{% block title %}
+	Checkout - The Perfect Cushion Store
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<br>
+		<h1 class="my_title text-center">Account Information</h1>
+		<br>
+		<div class="row">
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 bg-light">
+				<div>
+					<br>
+					<h2 class="my_title">User Information</h2>
+					{% for message in messages %}
+						{% if "user" in message.tags %}
+							<p style="color:green; text-align: left"><small>{{ message }}</small></p>     
+						{% endif %}
+					{% endfor %}
+					<form action="{% url 'user' %}" method="post">
+						{% csrf_token %}
+						<p>{{ user_form | crispy }}</p>
+						<br>
+						<div style="text-align: right">
+							<button type="submit" class="btn btn-secondary btn-block my_custom_button">Update User Information</button>
+						</div>
+					</form>
+					<br>
+				</div>
+			</div>
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 bg-light">
+				<div>
+					<br>
+					<h2 class="my_title">Billing Information</h2>
+					{% for message in messages %}
+						{% if "billing" in message.tags %}
+							<p style="color:green; text-align: left"><small>{{ message }}</small></p>     
+						{% endif %}
+					{% endfor %}
+					<form action="{% url 'billing' %}" method="post">
+						{% csrf_token %}
+						<p>{{ billing_form | crispy }}</p>
+						<br>
+						<div style="text-align: right">
+							<button type="submit" class="btn btn-secondary btn-block my_custom_button">Update Billing Information</button>
+						</div>
+					</form>
+					<br>
+					<form action="{% url 'shipping' %}" method="post">
+						{% csrf_token %}
+						<div id="shipping">
+							<br>
+							<h2 class="my_title">Shipping Information</h2>
+							{% for message in messages %}
+								{% if "shipping" in message.tags %}
+									<p style="color:green; text-align: left"><small>{{ message }}</small></p>     
+								{% endif %}
+							{% endfor %}
+							<p>{{ shipping_form | crispy }}</p>
+						</div>
+						<br>
+						<div style="text-align: right">
+							<button type="submit" class="btn btn-secondary btn-block my_custom_button">Update Shipping Information</button>
+						</div>
+					</form>
+					<br>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	<br>
+{% endblock %}

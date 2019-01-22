@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block metadescription %}
+	This is the checkout page. Please enter you billing/shipping information before proceeding.
+{% endblock %}
+{% block title %}
+	Checkout - The Perfect Cushion Store
+{% endblock %}
+{% block content %}
+	<script src="{% static 'js/cart.js' %}"></script>
+	<div class="container">
+		<br>
+		<h1 class="my_title text-center">Cart Checkout</h1>
+		<br>
+		<div class="row">
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 bg-light">
+				<div>
+					<br>
+					<h2 class="my_title">Billing Information</h2>
+					<form action="{% url 'cart:save_info' %}" method="post" id="address_forms">
+						{% csrf_token %}
+						<p>{{ billing_form | crispy }}</p>
+						<div style="text-align: left">
+							<input id="check_shipping" type="checkbox" name="same_addresses" onClick="show_shipping();"><Strong> Shipping Same As Billing</Strong><br>
+						</div>
+						<div id="shipping">
+							<br>
+							<h2 class="my_title">Shipping Information</h2>
+							<p>{{ shipping_form | crispy }}</p>
+						</div>
+						{% if user.is_authenticated %}
+						<br>
+						<div style="text-align: right">
+							<button type="submit" class="btn btn-secondary btn-block my_custom_button" name="save" value="save">Save Billing/Shipping Information</button>
+						</div>
+						{% endif %}
+					</form>
+					<br>
+				</div>
+			</div>
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 text-center my_custom_div">
+				<table class="table my_custom_table">
+					<thead class="my_custom_thead">
+						<tr>
+							<th>
+								Cart Subtotal
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Please enter billing/shipping information.
+							</td>
+						</tr>
+						<tr>
+							<td class="text-right">
+								<strong>${{ subtotal }}</strong>
+								<div>Shipping and handling:&nbsp;&nbsp;<strong>+$5.99</strong></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-right">
+								Subtotal:&nbsp;&nbsp;<strong>${{ shippingTotal }}</strong>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="mx-auto">
+					<button type="submit" class="btn btn-secondary btn-block my_custom_button" form="address_forms" name="tax" value="tax" style="color: #9ef7f4">Proceed To Cart Total</button>
+					<a href="{% url 'cart:cancel_order' %}" class="btn btn-secondary btn-block my_custom_button" style="color: #ff66b3">Cancel Order</a>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	<br>
+{% endblock %}

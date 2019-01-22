@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block metadescription %}
+	This is the payment page. Please enter you payment information before processing payment.
+{% endblock %}
+{% block title %}
+	Payment - The Perfect Cushion Store
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<br>
+		<h1 class="my_title text-center">Cart Payment</h1>
+		<br>
+		<div class="row">
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 bg-light">
+				<div>
+					<br>
+					<h2 class="my_title">Card Information</h2>
+					<!-- <form action="{% url 'cart:save_info' %}" method="post" id="address_forms"> -->
+					{% if messages %}
+						{% for message in messages %}
+							<p style="color:red; text-align: left"><small>{{ message }}</small></p>     
+						{% endfor %}
+					{% endif %}
+					<form action="{% url 'cart:payment' %}" method="post" id="payment_form">
+						{% csrf_token %}
+						<p>{{ payment_form | crispy }}</p>
+					</form>
+					<br>
+				</div>
+			</div>
+			<div class="col-12 cold-sm-12 col-md-12 col-lg-6 text-center my_custom_div">
+				<table class="table my_custom_table">
+					<thead class="my_custom_thead">
+						<tr>
+							<th>
+								Cart Total
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Please enter card information.
+							</td>
+						</tr>
+						<tr>
+							<td class="text-right">
+								<strong>${{ request.session.shippingTotal }}</strong>
+								<div>State of <strong>{{ request.session.state }}</strong> tax ({{ request.session.tax }}%):&nbsp;&nbsp;<strong>+${{ request.session.taxAmount }}</strong></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-right">
+								Total:&nbsp;&nbsp;<strong>${{ request.session.total }}</strong>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="mx-auto">
+					<button type="submit" class="btn btn-secondary btn-block my_custom_button" form="payment_form" style="color: #9ef7f4">Process Order/Payment</button>
+					<a href="{% url 'cart:cancel_order' %}" class="btn btn-secondary btn-block my_custom_button" style="color: #ff66b3">Cancel Order</a>
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+	<br>
+{% endblock %}

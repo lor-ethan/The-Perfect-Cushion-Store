@@ -1,6 +1,15 @@
+'''
+Created: September 18, 2018
+Created by: Ethan Lor
+Updated: October 25, 2018 Ethan Lor
+		 November 6, 2018 Ethan Lor
+'''
+
 from .models import Cart, CartItem
 from .views import _cart_id
 
+
+# Counter for number of items.
 def counter(request):
 	item_count = 0;
 	if 'admin' in request.path:

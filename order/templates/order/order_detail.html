@@ -16,14 +16,14 @@
 				<tr>
 					<td class="text-left" colspan="2">
 						<b>Order: </b>#{{ order.id }}<br>
-						<b>Date: </b>{{ order.created|date:"d M Y" }}<br>
+						<b>Date: </b>{{ order.created|date:"M d, Y" }}<br>
 						<b>Order Total: </b>${{ order.total }}<br>
 						<b>Order Status: </b><i class="fas fa-check"></i> Complete
 					</td>
 					<td class="text-left" colspan="2">
 						<b>Billing Address</b><br>
 						{{ order.billingName }}<br>
-						{{ order.billingAddress1 }}<br>
+						{{ order.billingAddress }}<br>
 						{{ order.billingCity }}, {{ order.billingState }}<br>
 						{{ order.billingPostcode }}<br>
 						{{ order.billingCountry  }}<br>
@@ -33,7 +33,7 @@
 					<td><b>Product Description</b></td>
 					<td><b>Qty</b></td>
 					<td><b>Unit Price</b></td>
-					<td><b>Sub-Total</b></td>
+					<td><b>Subtotals</b></td>
 				</tr>
 				{% for item in order_items %}
 					<tr>
@@ -43,6 +43,22 @@
 						<td>${{ item.sub_total }}</td>
 					</tr>
 				{% endfor %}
+				<tr>
+					<td class="text-right" colspan="3"></td>
+					<td>${{ order.subtotal }}</td>
+				</tr>
+				<tr>
+					<td class="text-right" colspan="3"><b>Shipping</b></td>
+					<td>+$5.99</td>
+				</tr>
+				<tr>
+					<td class="text-right" colspan="3"></td>
+					<td>${{ order.shippingTotal }}</td>
+				</tr>
+				<tr>
+					<td class="text-right" colspan="3"><b>{{ order.taxState }} Tax {{ order.tax }}%</b></td>
+					<td>+${{ order.taxAmount }}</td>
+				</tr>
 				<tr>
 					<td class="text-right" colspan="3"><b>Total</b></td>
 					<td>${{ order.total }}</td>
@@ -55,14 +71,14 @@
 					<td class="text-left" colspan="2">
 						<b>Shipping Address: </b><br>
 						{{ order.shippingName }}<br>
-						{{ order.shippingAddress1 }}<br>
+						{{ order.shippingAddress }}<br>
 						{{ order.shippingCity }}, {{ order.shippingState }}<br>
 						{{ order.shippingPostcode }}<br>
 						{{ order.shippingContry }}<br>
 					</td>
 					<td class="text-left" colspan="2">
 						<b>Payment Details: </b><br>
-						The order #{{ order.id }} has been paid succesfully via Stripe.
+						The order #{{ order.id }} has been processed and paid in full.
 					</td>
 				</tr>
 			</table>

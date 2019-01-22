@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 {% block metadescription %}
 	This is the shopping cart page. Proceed to review your items and place the order.
 {% endblock %}
@@ -48,12 +49,19 @@
 							</td>
 							<td class="text-left">
 								{{ cart_item.product.name }}
-								<br>
-								SKU: {{ cart_item.product.id }}
-								<br>
-								Unit Price: ${{ cart_item.product.price }}
-								<br>
-								Qty: {{ cart_item.quantity }} x ${{ cart_item.product.price }}
+									<br>
+									SKU: {{ cart_item.product.id }}
+								{% if cart_item.discount %}
+									<br>
+									Unit Price: <s style="color: red">${{ cart_item.price }}</s>&nbsp;&nbsp;{{ cart_item.discount }}% off
+									<br>
+									Discount Price: ${{ cart_item.discountPrice }}
+								{% else %}
+									<br>
+									Unit Price: ${{ cart_item.product.price }}
+								{% endif %}
+									<br>
+									Qty: {{ cart_item.quantity }} x ${{ cart_item.discountPrice }}
 							</td>
 							<td>
 								${{ cart_item.sub_total }}
@@ -69,7 +77,7 @@
 								<td></td>
 							{% endif %}
 						</tr>
-					{% endfor %}
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>	
@@ -78,42 +86,41 @@
 					<thead class="my_custom_thead">
 						<tr>
 							<th>
-								Checkout
+								Cart Subtotal
 							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>
-								Please review your shopping cart items before proceeding with the order payment.
+								Please review your shopping cart items before proceeding with the order.
 							</td>
 						</tr>
 						<tr>
-							<td class="text-left">
-								Your total is: <strong>${{ total }}</strong>
+							<td class="text-right">
+								<strong>${{ total }}</strong>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-right">
+								Subtotal:&nbsp;&nbsp;<strong>${{ subtotal }}</strong>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			<div class="mx-auto">
-				<form action="" method="POST">
+				<form action="{% url 'coupon:apply' %}" method="post">
 					{% csrf_token %}
- 					<script
-    					src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    					data-key="{{ data_key }}"
-    					data-amount="{{ stripe_total }}"
-    					data-name="The Perfect Cushion Shop"
-    					data-description="{{ description }}"
-    					data-image="{% static 'img/logo-plain.png' %}"
-    					data-locale="auto"
-    					data-currency="USD"
-    					data-shipping-address="true"
-    					data-billing-address="true"
-    					data-zip-code="true"
-    					>
-  					</script>
+					<p style="text-align: right">{{ coupon_apply_form }}</p>
+					{% if messages %}
+						{% for message in messages %}
+						<p style="color:red; text-align: right"><small>{{ message }}</small></p>     
+						{% endfor %}
+					{% endif %}
+					<button type="submit" class="btn btn-secondary btn-block my_custom_button">Apply Promotion</button>
 				</form>
 				<a href="{% url 'shop:allProdCat' %}" class="btn btn-secondary btn-block my_custom_button">Continue Shopping</a>
+				<a href="{% url 'cart:checkout' %}" class="btn btn-secondary btn-block my_custom_button" style="color: #9ef7f4">Proceed To Checkout</a>
 			</div>
 		</div>
 		<br>
