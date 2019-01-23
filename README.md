@@ -4,11 +4,13 @@ An Ecommerce Web Site built to the specifications of the client/Professor. Devel
 Other languages and technologies used include JavaScript, HTML, CSS, Bootstrap, jQuery, Stripe, and Canva. 
 Stripe API was removed in final version of project. Client/Professor required users' addresses to be stored and auto populated. 
 Stripe API does not allow for auto-populating fields and requires users to enter all information each time at check out.
+
 Click [here](http://ethanlor.pythonanywhere.com/shop/) to visit the live web site.
 
 ![Alt text](https://github.com/lor-ethan/The-Perfect-Cushion-Store/blob/master/Cushion%20Store.png)
 
 For Project Memebers:
+
 Git clone the The-Perfect-Cushion-Store project.
 
 Make sure you are running the current environment in the Anaconda Navigator Python 3.6 and open terminal that is running that ennvironment. 
