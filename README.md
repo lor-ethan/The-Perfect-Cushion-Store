@@ -8,6 +8,7 @@ Click [here](http://ethanlor.pythonanywhere.com/shop/) to visit the live web sit
 
 ![Alt text](https://github.com/lor-ethan/The-Perfect-Cushion-Store/blob/master/Cushion%20Store.png)
 
+For Project Memebers:
 Git clone the The-Perfect-Cushion-Store project.
 
 Make sure you are running the current environment in the Anaconda Navigator Python 3.6 and open terminal that is running that ennvironment. 
