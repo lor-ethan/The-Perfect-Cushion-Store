@@ -5,7 +5,7 @@ Other languages and technologies used include JavaScript, HTML, CSS, Bootstrap, 
 Stripe API was removed in final version of project. Client/Professor required users' addresses to be stored and auto populated. 
 Stripe API does not allow for auto-populating fields and requires users to enter all information each time at check out.
 
-Click [here](http://ethanlor.pythonanywhere.com/shop/) to visit the live web site.
+Click [here](http://ethanlor.pythonanywhere.com/shop/) to visit the live demo web site.
 
 ![Alt text](https://github.com/lor-ethan/The-Perfect-Cushion-Store/blob/master/Cushion%20Store.png)
 
